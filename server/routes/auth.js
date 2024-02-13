@@ -1,6 +1,9 @@
 const router = require("express").Router()
 
-router.get("/login", (req, res) => {
+const admin = require("../config/firebase.config")
+
+
+router.get("/login", async (req, res) => {
     //return res.json("Successfully Login with Google")
     //return res.send(req.headers.authorization)
     if (!req.headers.authorization) {
@@ -8,7 +11,17 @@ router.get("/login", (req, res) => {
     }
     const token = req.headers.authorization.split(" ")[1];
     //return res.send(token);
-    
+    try {
+        const decodeValue = await admin.auth().verifyIdToken(token)
+        if (!decodeValue) {
+            return res.status(505).json({ message: "Un-Authorized"})
+        }else{
+            return res.status(200).json(decodeValue)
+        }
+    } catch (error) {
+        return res.status(505).json({ message: error })
+    }
+
 })
 
 module.exports = router;
