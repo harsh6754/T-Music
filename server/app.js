@@ -14,6 +14,13 @@ app.get("/",(req,res)=>{
     return res.json("Hii Baby....")
 })
 
+//use Authentication route
+
+const userRoute = require("./routes/auth");
+app.use("/api/users/", userRoute);
+ 
+
+
 mongoose.connect(process.env.DB_STRING,{
     useNewUrlParser : true
 })
