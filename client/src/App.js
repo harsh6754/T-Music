@@ -4,6 +4,9 @@ import { Home, Login } from './components'
 import { app } from './config/firebase.config'
 import { getAuth, onIdTokenChanged } from 'firebase/auth'
 
+import { AnimatePresence } from 'framer-motion';
+
+
 const App = () => {
 
     const firebaseAuth = getAuth(app);
@@ -26,18 +29,20 @@ const App = () => {
         })
     }, [])
     return (
-        <div className='
+        <AnimatePresence>
+            <div className='
             w-screen
             h-screen
             bg-primary 
             flex justify-center 
             items-center'
-        >
-            <Routes>
-                <Route path='/login' element={<Login setAuth={setAuth} />} />
-                <Route path='/*' element={<Home />} />
-            </Routes>
-        </div>
+            >
+                <Routes>
+                    <Route path='/login' element={<Login setAuth={setAuth} />} />
+                    <Route path='/*' element={<Home />} />
+                </Routes>
+            </div>
+        </AnimatePresence>
     )
 }
 
