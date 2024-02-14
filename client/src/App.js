@@ -5,6 +5,10 @@ import { app } from './config/firebase.config'
 import { getAuth, onIdTokenChanged } from 'firebase/auth'
 
 import { AnimatePresence } from 'framer-motion';
+import { validateUser } from './api'
+
+import { useStateValue } from './context/StateProvider'
+import { actionType } from './context/reducer'
 
 
 const App = () => {
@@ -12,27 +16,41 @@ const App = () => {
     const firebaseAuth = getAuth(app);
     const navigate = useNavigate();
 
+    const [{ user }, dispatch] = useStateValue();
+
     const [auth, setAuth] = useState(window.localStorage.getItem("auth") ?? "false")
 
     useEffect(() => {
         firebaseAuth.onAuthStateChanged((userCred) => {
             if (userCred) {
                 userCred.getIdToken().then((token) => {
-                    console.log(token)
+                    // console.log(token)
+                    validateUser(token).then((data) => {
+                        // console.log(data)
+                        dispatch({
+                            type: actionType.SET_USER,
+                            user: data,
+                        })
+
+                    })
                     window.localStorage.setItem("auth", "true")
                 })
             } else {
                 setAuth(false);
                 window.localStorage.setItem("auth", "false");
+                dispatch({
+                    type: actionType.SET_USER,
+                    user: null,
+                })
                 navigate("/login")
             }
         })
     }, [])
     return (
-        <AnimatePresence>
+        <AnimatePresence mode="wait">
             <div className='
-            w-screen
-            h-screen
+             h-auto
+             min-w-[680px]
             bg-primary 
             flex justify-center 
             items-center'

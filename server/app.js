@@ -7,7 +7,7 @@ const cors = require("cors")
 const { default: mongoose, Mongoose } = require("mongoose");
 
 
-// app.use(cors({origin : true}));
+app.use(cors({origin : true}));
 
 
 app.get("/", (req, res) => {

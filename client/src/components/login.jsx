@@ -6,11 +6,17 @@ import { app } from "../config/firebase.config"
 import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 
+import { useStateValue } from '../context/StateProvider'
+import { actionType } from '../context/reducer'
+import { validateUser } from '../api'
+
 const Login = ({ setAuth }) => {
     const firebaseAuth = getAuth(app)
     const provider = new GoogleAuthProvider()
 
     const navigate = useNavigate();
+    const [{user},dispatch] = useStateValue()
+
     const loginWithGoogle = async () => {
         await signInWithPopup(firebaseAuth, provider).then((userCred) => {
             if (userCred) {
@@ -20,12 +26,23 @@ const Login = ({ setAuth }) => {
                 firebaseAuth.onAuthStateChanged((userCred) => {
                     if (userCred) {
                         userCred.getIdToken().then((token) => {
-                            console.log(token);
+                            //console.log(token);
+                             validateUser(token).then((data)=>{
+                                dispatch({
+                                    type : actionType.SET_USER,
+                                    user : data,
+                                })
+                             })
+
                         })
                         navigate("/", { replace: true })
                     }
                     else {
                         setAuth(false);
+                        dispatch({
+                            type : actionType.SET_USER,
+                            user : null,
+                        })
                         navigate("/login")
                     }
                 })
