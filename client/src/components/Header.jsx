@@ -9,6 +9,7 @@ import { FaCrown } from 'react-icons/fa'
 import { FaUser } from "react-icons/fa";
 import { MdFavorite } from "react-icons/md";
 import { IoMdLogOut } from "react-icons/io";
+import { MdDashboard } from "react-icons/md";
 
 
 import { useStateValue } from '../context/StateProvider'
@@ -96,6 +97,19 @@ const Header = () => {
                             My Favourites
                         </p>
                         <hr />
+                        {
+                            user?.user?.role === "admin" && (
+                                <>
+                                    <NavLink to={'/dashboard/home'}>
+                                        <p className='text-base text-textColor hover:font-semibold duration-150 transition-all ease-in-out flex items-center'>
+                                            <MdDashboard size={20} className='mr-2' />
+                                            Dashboard
+                                        </p>
+                                    </NavLink>
+                                    <hr />
+                                </>
+                            )
+                        }
                         <p className='text-base text-textColor hover:font-semibold duration-150 transition-all ease-in-out flex items-center' onClick={logOut}>
                             <IoMdLogOut size={20} className='mr-2' />
                             Sign Out

@@ -15,10 +15,20 @@ app.get("/", (req, res) => {
 })
 
 //use Authentication route
-
 const userRoute = require("./routes/auth");
 app.use("/api/users/", userRoute);
 
+//Artist Routes
+const artistRoutes = require("./routes/artist");
+app.use("/api/artists/", artistRoutes);
+
+//Albums Routes
+const albumRoutes = require("./routes/albums");
+app.use("/api/albums/", albumRoutes);
+
+// Songs Routes
+const songRoutes = require("./routes/songs");
+app.use("/api/songs/", songRoutes);
 
 
 mongoose.connect(process.env.DB_STRING, {
