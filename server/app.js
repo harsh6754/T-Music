@@ -8,6 +8,7 @@ const { default: mongoose, Mongoose } = require("mongoose");
 
 
 app.use(cors({origin : true}));
+app.use(express.json());
 
 
 app.get("/", (req, res) => {

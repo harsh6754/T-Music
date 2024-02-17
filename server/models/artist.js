@@ -1,7 +1,7 @@
 //const { timeStamp } = require("console");
 const mongoose = require("mongoose");
 
-const artistSchema = mongoose.Schema(
+const artistSchema = new mongoose.Schema(
     {
         name: {
             type: String,
@@ -21,7 +21,7 @@ const artistSchema = mongoose.Schema(
         },
 
     },
-    { timeStamp: true }
+    { timestamps: true }
 );
 
-module.export = mongoose.model("artist", artistSchema);
+module.exports = mongoose.model("artist", artistSchema);
