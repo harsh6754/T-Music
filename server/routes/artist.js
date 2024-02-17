@@ -1,57 +1,48 @@
 const router = require("express").Router();
-
-//our artist model
 const artist = require("../models/artist");
 
-
 router.post("/save", async (req, res) => {
-   // return res.json("getting all artist")
-   const newArtist =  artist(
-      {
-         name: req.body.name,
-         imageURL: req.body.imageURL,
-         twitter: req.body.twitter,
-         instagram: req.body.instagram,
-      }
-   )
+   const { name, imageURL, twitter, instagram } = req.body;
+
    try {
-      const savedArtist = await newArtist.save();
-      return res.status(200).send({ success: true, artist: savedArtist });
+      const newArtist = await artist.create({
+         name,
+         imageURL,
+         twitter,
+         instagram
+      });
+
+      return res.status(201).json({ success: true, artist: newArtist });
    } catch (error) {
-      return res.status(400).send({ success: false, msg: error });
+      console.error("Error saving artist:", error);
+      return res.status(400).json({ success: false, msg: "Failed to save artist" });
    }
-})
+});
 
-module.exports = router
+router.get("/getOne/:id", async (req, res) => {
+   try {
+      const foundArtist = await artist.findById(req.params.id);
 
+      if (foundArtist) {
+         return res.status(200).json({ success: true, artist: foundArtist });
+      } else {
+         return res.status(404).json({ success: false, msg: "Artist not found" });
+      }
+   } catch (error) {
+      console.error("Error fetching artist:", error);
+      return res.status(500).json({ success: false, msg: "Internal server error" });
+   }
+});
 
-// const router = require("express").Router();
-// const Artist = require("../models/artist");
+router.get("/getAll", async (req, res) => {
+   try {
+      const allArtists = await artist.find().sort({ createdAt: 1 });
 
-// router.post("/save", async (req, res) => {
-//    try {
-//       const newArtist = new Artist({
-//          name: req.body.name,
-//          imageURL: req.body.imageURL,
-//          twitter: req.body.twitter,
-//          instagram: req.body.instagram,
-//       });
+      return res.status(200).json({ success: true, artists: allArtists });
+   } catch (error) {
+      console.error("Error fetching artists:", error);
+      return res.status(500).json({ success: false, msg: "Internal server error" });
+   }
+});
 
-//       const savedArtist = await newArtist.save();
-//       return res.status(200).json({ success: true, artist: savedArtist });
-//    } catch (error) {
-//       console.error("Error saving artist:", error);
-//       let errorMessage = "Failed to save the artist.";
-
-//       // Handle specific error cases
-//       if (error.name === 'ValidationError') {
-//          errorMessage = "Validation error. Please check your input data.";
-//       } else if (error.code === 11000) {
-//          errorMessage = "Duplicate key error. Artist already exists.";
-//       }
-
-//       return res.status(400).json({ success: false, error: errorMessage });
-//    }
-// });
-
-// module.exports = router;
+module.exports = router;
