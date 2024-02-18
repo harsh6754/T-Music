@@ -57,7 +57,7 @@ router.delete("/delete/:id", async (req, res) => {
       if (result.deletedCount > 0) { // Check if any document was deleted
          return res.status(200).send({ success: true, msg: "Data Deleted Successfully" });
       } else {
-         return res.status(404).send({ success: false, msg: "Data Not Found" });
+         return res.status(404).send({ success: false, msg: "Data Not Found" , data : result});
       }
    } catch (error) {
       console.error("Error:", error);

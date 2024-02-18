@@ -14,7 +14,7 @@ router.post("/save", async (req, res) => {
 
         return res.status(201).json({ success: true, album: newAlbum });
     } catch (error) {
-        console.error("Error saving artist:", error);
+        console.error("Error saving album:", error);
         return res.status(400).json({ success: false, msg: "Failed to save Album" });
     }
 });
@@ -30,7 +30,7 @@ router.get("/getOne/:id", async (req, res) => {
             return res.status(404).json({ success: false, msg: "Album not found" });
         }
     } catch (error) {
-        console.error("Error fetching artist:", error);
+        console.error("Error fetching album:", error);
         return res.status(500).json({ success: false, msg: "Internal server error" });
     }
 });
@@ -42,7 +42,7 @@ router.get("/getAll", async (req, res) => {
 
         return res.status(200).json({ success: true, album: allAlbum });
     } catch (error) {
-        console.error("Error fetching artists:", error);
+        console.error("Error fetching album:", error);
         return res.status(500).json({ success: false, msg: "Internal server error" });
     }
 });
@@ -54,7 +54,7 @@ router.delete("/delete/:id", async (req, res) => {
         const result = await album.deleteOne(filter);
 
         if (result.deletedCount > 0) { // Check if any document was deleted
-            return res.status(200).send({ success: true, msg: "Data Deleted Successfully" });
+            return res.status(200).send({ success: true, msg: "Data Deleted Successfully", data : result });
         } else {
             return res.status(404).send({ success: false, msg: "Data Not Found" });
         }
@@ -81,7 +81,7 @@ router.put("/update/:id", async (req, res) => {
             return res.status(404).json({ success: false, msg: "Album not found" });
         }
     } catch (error) {
-        console.error("Error updating artist:", error);
+        console.error("Error updating album:", error);
         return res.status(500).json({ success: false, msg: "Internal server error" });
     }
 });

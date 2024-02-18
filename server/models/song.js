@@ -1,7 +1,7 @@
 //const { timeStamp } = require("console");
 const mongoose = require("mongoose");
 
-const songSchema = mongoose.Schema(
+const songSchema = new mongoose.Schema(
     {
         name: {
             type: String,
@@ -10,6 +10,10 @@ const songSchema = mongoose.Schema(
         imageURL: {
             type: String,
             required: true,
+        },
+        songURL:{
+           type:String,
+           required:true,
         },
         album: {
             type: String,
@@ -29,7 +33,7 @@ const songSchema = mongoose.Schema(
         },
 
     },
-    { timeStamp: true }
+    { timestamps: true }
 );
 
-module.export = mongoose.model("song", songSchema);
+module.exports = mongoose.model("song", songSchema);

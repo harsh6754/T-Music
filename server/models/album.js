@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const albumSchema = mongoose.Schema(
+const albumSchema = new mongoose.Schema(
     {
         name: {
             type: String,
