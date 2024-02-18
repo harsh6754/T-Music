@@ -4,7 +4,8 @@ import { Dashboard, Home, Login } from './components'
 import { app } from './config/firebase.config'
 import { getAuth, onIdTokenChanged } from 'firebase/auth'
 
-import { AnimatePresence } from 'framer-motion';
+// import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion'
 import { validateUser } from './api'
 
 import { useStateValue } from './context/StateProvider'
