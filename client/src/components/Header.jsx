@@ -38,7 +38,7 @@ const Header = () => {
                 <img src={Logo} alt="Logo" className='w-16' />
             </NavLink>
 
-            <ui className='flex items-center justify-center ml-7'>
+            <ul className='flex items-center justify-center ml-7'>
                 <li className='mx-5 text-lg list-none'>
                     <NavLink to={'/home'} className={({ isActive }) =>
                         isActive ? isActiveStyles : isNotActiveStyles
@@ -71,7 +71,7 @@ const Header = () => {
                     </NavLink>
                 </li>
 
-            </ui>
+            </ul>
 
             <div
                 onMouseEnter={() => setIsMenu(true)}
