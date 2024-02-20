@@ -18,6 +18,7 @@ export const validateUser = async (token) => {
 export const getAllArtists = async () => {
   try {
     const res = await axios.get(`${baseURL}api/artists/getAll`);
+    // console.log(res);
     return res.data;
   } catch (error) {
     return null;
@@ -54,6 +55,7 @@ export const getAllSongs = async () => {
 export const getAllAlbums = async () => {
   try {
     const res = await axios.get(`${baseURL}api/albums/getAll`);
+    //console.log(res);
     return res.data;
   } catch (error) {
     return null;
