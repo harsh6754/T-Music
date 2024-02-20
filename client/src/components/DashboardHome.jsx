@@ -1,69 +1,67 @@
-import React, {useEffect} from "react";
-import {FaUsers} from "react-icons/fa";
-import {GiLoveSong, GiMusicalNotes} from "react-icons/gi";
-import {RiUserStarFill} from "react-icons/ri";
-import {getAllAlbums,getAllArtists,getAllSongs,getAllUsers} from "../api";
-import {actionType} from "../context/reducer";
-import {useStateValue} from "../context/StateProvider";
-import {bgColors} from "../utils/styles";
+import React, { useEffect } from 'react'
+import { useStateValue } from '../context/StateProvider';
+import { getAllAlbums, getAllArtists, getAllSongs, getAllUsers } from '../api';
+import { actionType } from '../context/reducer';
 
-export const DashboardCard = ({icon,name,count})=>{
-  const bg_color = bgColors[parseInt(Math.random() * bgColors.length)];
-
-  return(
-    <div
-     style={{background:`${bg_color}`}}
-     className={`p-4 w-40 gap-3 h-auto rounded-lg shadow-md flex flex-col items-center justify-center`}
-    >
+export const DashboardCard = ({ icon, name, count }) => {
+  return (
+    <div className='p-4 w-40 gap-3 height-auto rounded-lg shadow-md bg-blue-400'>
       {icon}
       <p className="text-xl text-textColor font-semibold">{name}</p>
       <p className="text-xl text-textColor">{count}</p>
     </div>
+
   );
 };
-const DashBoardHome =() =>{
-  const [{allUsers,allSongs,artists,allAlbums}, dispatch] =useStateValue();
-  useEffect(()=>{
-    if(!allUsers){
-      getAllUsers().then((data)=>{
+
+const DashboardHome = () => {
+  const [{ allUsers, allArtists, allAlbums, allSongs }, dispatch] = useStateValue();
+
+  useEffect(() => {
+    if (!allUsers) {
+      getAllUsers().then((data) => {
         dispatch({
-          type:actionType.SET_ALL_USERS,
-          allusers:data.data,
+          type: actionType.SET_ALL_USERS,
+          allUsers: data.data,
         });
       });
     }
-    if(!allSongs){
-      getAllSongs().then((data)=>{
+    if (!allArtists) {
+      getAllArtists().then((data) => {
         dispatch({
-          type:actionType.SET_ALL_SONGS,
-          allSongs: data.data,
+          type: actionType.SET_ALL_ARTISTS,
+          allArtists : data.artists,
         });
       });
     }
-    if(!artists){
-       getAllArtists().then((data) =>{
-        dispatch({type:actionType.SET_ARTISTS,
-          artists:data.data,
-        });
-       });
-    }
-    if(!allAlbums){
-      getAllAlbums().then((data)=>{
-        dispatch({type:actionType.SET_ALL_ALBUMNS,
-        allAlbums:data.data,
+
+    if (!allAlbums) {
+      getAllAlbums().then((data) => {
+        dispatch({
+          type: actionType.SET_ALL_ALBUMS,
+          allAlbums : data.album,
         });
       });
     }
-  }, []);
+    if (!allSongs) {
+      getAllSongs().then((data) => {
+        dispatch({
+          type: actionType.SET_ALL_SONGS,
+          allSongs : data.song,
+        });
+      });
+    }
+    
+  }, [])
 
   return (
-    <div className="w-full p-6 flex items-center justify-evenly flex-wrap">
-       <DashboardCard icon={<FaUsers className="text-3xl text-textColor" />} name={"Users"} count={allUsers?.length > 0 ? allUsers?.length : 0} />
-       <DashboardCard icon={<GiLoveSong className="text-3xl text-textColor" />} name={"Songs"} count={allSongs?.length > 0 ? allSongs?.length : 0} />
-       <DashboardCard icon={<RiUserStarFill className="text-3xl text-textColor" />} name={"Artist"} count={artists?.length > 0 ? artists?.length : 0} />
-       <DashboardCard icon={<GiMusicalNotes className="text-3xl text-textColor" />} name={"Album"} count={allAlbums?.length > 0 ? allAlbums?.length : 0} />
-
+    <div className='w-full p-6 flex items-center justify-evenly flex-wrap'>
+      <DashboardCard />
+      <DashboardCard />
+      <DashboardCard />
+      <DashboardCard />
     </div>
   )
 }
-export default DashBoardHome;
+
+export default DashboardHome

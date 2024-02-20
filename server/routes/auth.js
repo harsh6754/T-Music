@@ -75,20 +75,26 @@ const updateNewUserData = async (decodeValue, req, res) => {
     }
 }
 
-router.get("/getUsers",async (req,res)=>{
-    const options = {
-        sort :{
-            createdAt:1,
-        },
-    };
+router.get("/getAllUsers", async (req, res) => {
+    try {
+        const options = {
+            sort: {
+                createdAt: 1,
+            },
+        };
 
-    const cursor = await user.find(options);
-    if(cursor)
-    {
-        res.status(200).send({success : true, data : cursor})
-    }else{
-        res.status(400).send({ success: false, msg: "No Data Found" })
+        const cursor = await user.find({}, {}, options).lean();
+        if (cursor && cursor.length > 0) {
+            res.status(200).send({ success: true, data: cursor });
+        } else {
+            res.status(404).send({ success: false, msg: "Data not found" });
+        }
+    } catch (err) {
+        console.error("Error fetching users:", err);
+        res.status(500).send({ success: false, msg: "Internal Server Error" });
     }
-})
+});
+
+
 
 module.exports = router;
