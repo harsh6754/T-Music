@@ -2,7 +2,9 @@ import React from 'react'
 
 const DashboardSongs = () => {
   return (
-    <div>DashboardSongs</div>
+    <div className='w-full p-4 flex items-center justify-center flex-col'>
+      
+    </div>
   )
 }
 
