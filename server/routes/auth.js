@@ -95,6 +95,24 @@ router.get("/getAllUsers", async (req, res) => {
     }
 });
 
+router.put("/updateRole/:userId", async (req, res) => {
+    const filter = { _id: req.params.userId };
+    const role = req.body.data.role;
+    // const options = {
+    //     upsert: true,
+    //     new: true,
+    // };
+
+    
+
+    try {
+        const result = await user.findByIdAndUpdate(filter, { role: role })
+        res.status(200).send({user : result});
+    } catch (error) {
+        res.status(400).send({ success: false, msg: error });
+    }
+})
+
 
 
 module.exports = router;
