@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import { useStateValue } from '../context/StateProvider'
 import { motion } from "framer-motion";
 import moment from 'moment';
-import { changingUserRole, getAllUsers } from '../api';
+import { changingUserRole, getAllUsers, removeUser } from '../api';
 import { actionType } from "../context/reducer"
+import { MdDelete } from 'react-icons/md'
 
 
 export const DashboardUserCard = ({ data, index }) => {
@@ -24,9 +25,32 @@ export const DashboardUserCard = ({ data, index }) => {
       }
     })
   }
+  const deleteUser = (userId) => {
+    // console.log(userId);
+    removeUser(userId).then((res) => {
+      if (res) {
+        getAllUsers().then((data) => {
+          dispatch({
+            type: actionType.SET_ALL_USERS,
+            allUsers: data.data
+          })
+        })
+      }
+    })
+  }
 
   return (
     <motion.div key={index} className='relative w-full rounded-md flex items-center justify-between py-4 bg-lightOverlay cursor-pointer hover:bg-card hover:shadow-md'>
+      {data._id !== user?.user._id && (
+        <motion.div
+          whileTap={{ scale: 0.75 }}
+          className='absolute left-4 w-8 h-8 rounded-md flex items-center justify-center bg-gray-200'
+          onClick={() => deleteUser(data._id)}>
+          <MdDelete className=' text-xl text-red-400 hover:text-red-500' />
+
+        </motion.div>
+
+      )}
 
       {/* Users Image */}
       <div className='w-275 min-w-[160px] flex items-center justify-center'>
