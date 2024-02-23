@@ -59,7 +59,7 @@ const Login = ({ setAuth }) => {
 
     return (
         <div className='relative w-screen h-screen'>
-             <video src={LoginBg}
+            <video src={LoginBg}
                 type="video/mp4"
                 autoPlay
                 //muted

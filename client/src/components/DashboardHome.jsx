@@ -11,9 +11,9 @@ import { bgColors } from "../utils/styles";
 export const DashboardCard = ({ icon, name, count }) => {
   const bg_color = bgColors[parseInt(Math.random() * bgColors.length)];
   return (
-    <div 
-    style={{ background: `${bg_color}` }}
-    className='p-4 w-40 gap-3 h-auto rounded-lg shadow-md flex flex-col items-center justify-center'>
+    <div
+      style={{ background: `${bg_color}` }}
+      className='p-4 w-40 gap-3 h-auto rounded-lg shadow-md flex flex-col items-center justify-center'>
       {icon}
       <p className="text-xl text-textColor font-semibold">{name}</p>
       <p className="text-xl text-textColor">{count}</p>
@@ -38,7 +38,7 @@ const DashboardHome = () => {
       getAllArtists().then((data) => {
         dispatch({
           type: actionType.SET_ALL_ARTISTS,
-          allArtists : data.artists,
+          allArtists: data.artists,
         });
       });
     }
@@ -47,7 +47,7 @@ const DashboardHome = () => {
       getAllAlbums().then((data) => {
         dispatch({
           type: actionType.SET_ALL_ALBUMS,
-          allAlbums : data.album,
+          allAlbums: data.album,
         });
       });
     }
@@ -55,11 +55,11 @@ const DashboardHome = () => {
       getAllSongs().then((data) => {
         dispatch({
           type: actionType.SET_ALL_SONGS,
-          allSongs : data.song,
+          allSongs: data.song,
         });
       });
     }
-    
+
   }, [])
 
   return (

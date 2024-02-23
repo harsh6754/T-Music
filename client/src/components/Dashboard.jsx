@@ -6,7 +6,7 @@ import { isActiveStyles, isNotActiveStyles } from '../utils/styles'
 import DashboardHome from './DashboardHome'
 import DashboardUsers from './DashboardUsers'
 import DashboardSongs from './DashboardSongs'
-import DashboardAlbums  from './DashboardAlbums'
+import DashboardAlbums from './DashboardAlbums'
 import DashboardArtists from './DashboardArtists'
 
 const Dashboard = () => {
@@ -51,18 +51,18 @@ const Dashboard = () => {
         >
           Albums
         </NavLink>
-        </div>
+      </div>
 
 
-        <div className="my-4 w-full p-4">
-          <Routes>
-            <Route path='/home' element={<DashboardHome/>}/>
-            <Route path='/user' element={<DashboardUsers/>}/>
-            <Route path='/songs' element={<DashboardSongs/>}/>
-            <Route path='/artist' element={<DashboardArtists/>}/>
-            <Route path='/albums' element={<DashboardAlbums/>}/>
-            <Route path='/newSong' element={<DashboardHome/>}/>
-          </Routes>
+      <div className="my-4 w-full p-4">
+        <Routes>
+          <Route path='/home' element={<DashboardHome />} />
+          <Route path='/user' element={<DashboardUsers />} />
+          <Route path='/songs' element={<DashboardSongs />} />
+          <Route path='/artist' element={<DashboardArtists />} />
+          <Route path='/albums' element={<DashboardAlbums />} />
+          <Route path='/newSong' element={<DashboardHome />} />
+        </Routes>
       </div>
     </div>
   )

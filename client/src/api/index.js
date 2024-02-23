@@ -51,9 +51,9 @@ export const getAllSongs = async () => {
   }
 };
 
-export const changingUserRole = async (userId,role) => {
+export const changingUserRole = async (userId, role) => {
   try {
-    const res = axios.put(`${baseURL}api/users/updateRole/${userId}`,{data : {role : role}});
+    const res = axios.put(`${baseURL}api/users/updateRole/${userId}`, { data: { role: role } });
     return res;
   } catch (error) {
     return null
