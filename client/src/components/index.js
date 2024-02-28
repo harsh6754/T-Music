@@ -1,5 +1,6 @@
 export { default as Login } from "./login"
 export { default as Home } from "./home"
+//export { default as Contact } from './contact'
 export { default as Header } from "./Header"
 
 //Admin DashBoard 
