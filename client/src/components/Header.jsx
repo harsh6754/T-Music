@@ -38,7 +38,7 @@ const Header = () => {
                 <img src={Logo} alt="Logo" className='w-16' />
             </NavLink>
 
-            <ul className='flex items-center justify-center ml-7'>
+            <ul className='flex items-center justify-center ml-8'>
                 <li className='mx-5 text-lg list-none'>
                     <NavLink to={'/home'} className={({ isActive }) =>
                         isActive ? isActiveStyles : isNotActiveStyles
@@ -67,8 +67,17 @@ const Header = () => {
                     <NavLink to={'/contact'} className={({ isActive }) =>
                         isActive ? isActiveStyles : isNotActiveStyles
                     } >
-                        Contact Us
+                        Contact
                     </NavLink>
+                </li>
+
+                <li className="mx-5 text-lg list-none">
+                    <NavLink to={'/about'} className={({ isActive }) =>
+                        isActive ? isActiveStyles : isNotActiveStyles
+                    }>
+                        About Us
+                    </NavLink>
+
                 </li>
 
             </ul>

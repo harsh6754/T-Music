@@ -1,6 +1,9 @@
 export { default as Login } from "./login"
 export { default as Home } from "./home"
-//export { default as Contact } from './contact'
+export { default as Contact } from './contact'
+export { default as Musics } from "./Musics"
+export { default as Premium } from './premium'
+export { default as AboutUs } from './about'
 export { default as Header } from "./Header"
 
 //Admin DashBoard 

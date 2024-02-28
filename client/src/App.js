@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
-import { Dashboard, Home, Login } from './components'
+import { Dashboard, Home, Login, Contact, Musics, Premium, AboutUs} from './components'
 import { app } from './config/firebase.config'
 import { getAuth, onIdTokenChanged } from 'firebase/auth'
 
@@ -59,7 +59,12 @@ const App = () => {
                 <Routes>
                     <Route path='/login' element={<Login setAuth={setAuth} />} />
                     <Route path='/*' element={<Home />} />
+                    <Route path='/contact' element={<Contact/>}/>
+                    <Route path='/musics' element={<Musics/>}/>
+                    <Route path ='/premium' element={<Premium/>}/>
+                    <Route path = '/about' element={<AboutUs/>}/>
                     <Route path='/dashboard/*' element={<Dashboard />} />
+
                 </Routes>
             </div>
         </AnimatePresence>
