@@ -25,6 +25,7 @@ const Header = () => {
     const [{ user }, dispatch] = useStateValue();
     const [isMenu, setIsMenu] = useState(false);
     const navigate = useNavigate();
+
     const logOut = () => {
         const firebaseAuth = getAuth(app)
         firebaseAuth.signOut().then(() => {
@@ -33,7 +34,7 @@ const Header = () => {
         navigate("/login", { replace: true })
     }
     return (
-        <header className='flex items-center w-full p-4 md:py-2 md:px-6'>
+        <header className=' flex items-center w-full p-4 md:py-2 md:px-6'>
             <NavLink to={"/"}>
                 <img src={Logo} alt="Logo" className='w-16' />
             </NavLink>
@@ -63,14 +64,6 @@ const Header = () => {
                     </NavLink>
                 </li>
 
-                <li className='mx-5 text-lg list-none'>
-                    <NavLink to={'/contact'} className={({ isActive }) =>
-                        isActive ? isActiveStyles : isNotActiveStyles
-                    } >
-                        Contact
-                    </NavLink>
-                </li>
-
                 <li className="mx-5 text-lg list-none">
                     <NavLink to={'/about'} className={({ isActive }) =>
                         isActive ? isActiveStyles : isNotActiveStyles
@@ -79,6 +72,15 @@ const Header = () => {
                     </NavLink>
 
                 </li>
+
+                <li className='mx-5 text-lg list-none'>
+                    <NavLink to={'/contact'} className={({ isActive }) =>
+                        isActive ? isActiveStyles : isNotActiveStyles
+                    } >
+                        Contact
+                    </NavLink>
+                </li>
+
 
             </ul>
 
