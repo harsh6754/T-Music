@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import emailjs from 'emailjs-com';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import backgroundImage from '../Images/images.jpeg';  
 
 const Contact = () => {
   const form = useRef();
@@ -16,23 +17,23 @@ const Contact = () => {
         'service_4h4sako', // Corrected environment variable usage
         'template_o6sym37', // Corrected environment variable usage
         form.current,
-        "1up9aB2deQPU1J8wG" // Corrected environment variable usage
+        '1up9aB2deQPU1J8wG', // Corrected environment variable usage
       )
       .then(
         () => {
           console.log('SUCCESS!');
-          toast.success('Email send Successfully!');
+          toast.success('Email sent Successfully!');
         },
         (error) => {
           console.log('FAILED...', error.text);
           toast.error('Failed to send email!');
-        }
+        },
       );
   };
 
   return (
-    <div className="w-full h-auto flex flex-col bg-primary">
-      <Header/>
+    <div className="w-full h-auto flex flex-col">
+      <Header />
       <Container>
         <StyledContactForm>
           <form ref={form} onSubmit={sendEmail}>
@@ -66,7 +67,10 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   height: 87.3vh;
-  background-color: black;
+  background-image: url(${backgroundImage}); /* Use the imported image */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 `;
 
 const StyledContactForm = styled.div`
@@ -116,3 +120,4 @@ const StyledContactForm = styled.div`
 `;
 
 export default Contact;
+
