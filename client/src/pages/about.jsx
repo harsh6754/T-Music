@@ -284,7 +284,7 @@ const About = () => {
           transition={{ duration: 0.5, delay: 2.5 }}
         >
           <a
-            href="https://www.instagram.com/h_agrawal6754"
+            href="https://www.linkedin.com/in/harsh2810"
             target="_blank"
             rel="noopener noreferrer"
             className="creator"
@@ -313,7 +313,7 @@ const About = () => {
           </a>
 
           <a
-            href="https://www.instagram.com/h_agrawal6754"
+            href="https://www.linkedin.com/in/shakshi-vishwakarma-21050421b/"
             target="_blank"
             rel="noopener noreferrer"
             className="creator"
@@ -336,13 +336,13 @@ const About = () => {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 3 }}
               >
-                210306105012
+                210306105124
               </motion.p>
             </div>
           </a>
 
           <a
-            href="https://www.instagram.com/h_agrawal6754"
+            href="https://www.linkedin.com/in/shreya-singh-152377268"
             target="_blank"
             rel="noopener noreferrer"
             className="creator"
@@ -365,7 +365,7 @@ const About = () => {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 3 }}
               >
-                210306105012
+                210306105133
               </motion.p>
             </div>
           </a>
