@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import Header from './Header';
+import Header from '../components/Header';
 import styled from 'styled-components';
 import emailjs from 'emailjs-com';
 import { ToastContainer, toast } from 'react-toastify';

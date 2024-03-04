@@ -1,15 +1,12 @@
 import React from 'react'
-import styled from 'styled-components';
-import Header from './Header'
+import Header from '../components/Header'
 
-
-const Home = () => {
+const premium = () => {
   return (
     <div className="w-full h-auto flex flex-col items-center justify-center bg-primary">
-      <Header />
+      <Header/>
     </div>
-    
   )
 }
 
-export default Home
+export default premium
