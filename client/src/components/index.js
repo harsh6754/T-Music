@@ -14,5 +14,7 @@ export { default as DashboardNewSong } from './DashboardNewSong'
 export { default as DashboardUsers } from './DashboardUsers'
 export { default as DashboardArtist } from './DashboardArtists'
 export { default as DashboardAlbums } from './DashboardAlbums'
-//export { dafault as SongCard } from './SongCard'
 export { default as SongCard } from './SongCard'
+
+//Profile
+export { default as Profiles } from './profile'
