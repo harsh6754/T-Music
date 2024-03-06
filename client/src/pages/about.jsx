@@ -234,7 +234,7 @@ import harsh from "../Images/harsh.png";
 
 const About = () => {
   return (
-    <motion.div 
+    <motion.div
       className='w-full h-auto flex flex-col  bg-primary'
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -242,13 +242,13 @@ const About = () => {
       transition={{ duration: 0.5 }}
     >
       <Header />
-      <motion.div 
+      <motion.div
         className="section"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.5 }}
       >
-        <motion.div 
+        <motion.div
           className="head"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -256,7 +256,7 @@ const About = () => {
         >
           ABOUT US
         </motion.div>
-        <motion.div 
+        <motion.div
           className="about"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -269,7 +269,7 @@ const About = () => {
         </motion.div>
 
 
-        <motion.div 
+        <motion.div
           className="head"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -277,7 +277,7 @@ const About = () => {
         >
           MEET OUR TEAM MEMBERS
         </motion.div>
-        <motion.div 
+        <motion.div
           className="creators"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -293,7 +293,7 @@ const About = () => {
               <img src={harsh} alt="harsh" />
             </div>
             <div className="personDetail">
-              <motion.p 
+              <motion.p
                 className="name"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -301,7 +301,7 @@ const About = () => {
               >
                 Harsh Agrawal
               </motion.p>
-              <motion.p 
+              <motion.p
                 className="collageId"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -322,7 +322,7 @@ const About = () => {
               <img src={sakshi} alt="sakshi" />
             </div>
             <div className="personDetail">
-              <motion.p 
+              <motion.p
                 className="name"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -330,13 +330,71 @@ const About = () => {
               >
                 Sakshi Vishwakarma
               </motion.p>
-              <motion.p 
+              <motion.p
                 className="collageId"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 3 }}
               >
                 210306105124
+              </motion.p>
+            </div>
+          </a>
+
+          <a
+            href="https://www.linkedin.com/in/shreya-singh-152377268"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="creator"
+          >
+            <div className="personImage" style={{ backgroundImage: `url(${shreya})` }}>
+              <img src={shreya} alt="shreya" />
+            </div>
+            <div className="personDetail">
+              <motion.p
+                className="name"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 3 }}
+              >
+                Shreya Singh
+              </motion.p>
+              <motion.p
+                className="collageId"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 3 }}
+              >
+                210306105133
+              </motion.p>
+            </div>
+          </a>
+
+          <a
+            href="https://www.linkedin.com/in/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="creator"
+          >
+            <div className="personImage" style={{ backgroundImage: `url(${shreya})` }}>
+              <img src={shreya} alt="shreya" />
+            </div>
+            <div className="personDetail">
+              <motion.p
+                className="name"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 3 }}
+              >
+                Rajan Kumar
+              </motion.p>
+              <motion.p
+                className="collageId"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 3 }}
+              >
+                210306105133
               </motion.p>
             </div>
           </a>

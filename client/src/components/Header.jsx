@@ -35,7 +35,7 @@ const Header = () => {
     }
     return (
         <header className=' flex items-center w-full p-4 md:py-2 md:px-6'>
-            <NavLink to={"/"}>
+            <NavLink to={"/tmusics"}>
                 <img src={Logo} alt="Logo" className='w-16' />
             </NavLink>
 

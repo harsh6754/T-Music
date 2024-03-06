@@ -18,3 +18,6 @@ export { default as SongCard } from './SongCard'
 
 //Profile
 export { default as Profiles } from './profile'
+
+//Header
+export { default as MusicStatics } from '../pages/MusicStatic'

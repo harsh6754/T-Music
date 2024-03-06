@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
-import { Dashboard, Home, Login, Contact, Musics, Premium, AboutUs, profile, Profiles} from './components'
+import { Dashboard, Home, Login, Contact, Musics, Premium, AboutUs,  Profiles, Header} from './components'
 import { app } from './config/firebase.config'
 import { getAuth, onIdTokenChanged } from 'firebase/auth'
 
@@ -10,6 +10,7 @@ import { validateUser } from './api'
 
 import { useStateValue } from './context/StateProvider'
 import { actionType } from './context/reducer'
+import MusicStatic from './pages/MusicStatic'
 
 
 const App = () => {
@@ -65,7 +66,7 @@ const App = () => {
                     <Route path = '/about' element={<AboutUs/>}/>
                     <Route path = '/userProfile' element={<Profiles />}/>
                     <Route path='/dashboard/*' element={<Dashboard />} />
-
+                    <Route path='/tmusics' element={<MusicStatic/>}/>
                 </Routes>
             </div>
         </AnimatePresence>
