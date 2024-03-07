@@ -2,39 +2,39 @@ import React from "react";
 
 function MusicPlayer() {
   return (
-    <div className="musicPlayer flex flex-col px-5 w-[100%] border-2 border-black py-3 bg-[#232A4E] rounded-xl mt-5">
+    <div className="musicPlayer flex flex-col px-3 md:px-5 w-full border-2 border-black py-3 bg-[#232A4E] rounded-xl mt-5">
       {/* Upper Part */}
-      <div className="upperPart flex items-center justify-between">
+      <div className="upperPart flex items-center justify-between px-3 md:px-0">
         {/* profile */}
-        <div className="profile flex">
+        <div className="profile flex items-center">
           <img
             src={require("../Images/Mask Group 23.png")}
             alt=""
-            className="w-[2.5rem] h-[2.5rem] border-2 border-white rounded-full"
+            className="w-10 h-10 md:w-[2.5rem] md:h-[2.5rem] border-2 border-white rounded-full"
           />
-          <div className="detailsf flex flex-col ml-4">
-            <span className="text-[1rem]">Tristam Bone Dry</span>
-            <span className="text-sm text-gray-500">Unknown Artist</span>
+          <div className="detailsf flex flex-col ml-2 md:ml-4">
+            <span className="text-xs md:text-base">Tristam Bone Dry</span>
+            <span className="text-xs text-gray-500">Unknown Artist</span>
           </div>
         </div>
         <div>
-          <img src={require("../Images/path.png")} alt="" className=" h-[1rem] " />
+          <img src={require("../Images/path.png")} alt="" className=" h-6 md:h-[1rem]" />
         </div>
       </div>
       {/* lower part */}
-      <div className="lowerPart flex items-center justify-between mt-5">
+      <div className="lowerPart flex items-center justify-between mt-3 md:mt-5 px-3 md:px-0">
         {/* track */}
-        <div className="track flex justify-between text-sm text-gray-500 flex-[2] items-center">
+        <div className="track flex justify-between text-xs md:text-sm text-gray-500 flex-1 items-center">
           <span>2: 30</span>
           <img
             src={require("../Images/Group 9.png")}
             alt=""
-            className="w-[16rem]"
+            className="w-16 md:w-[16rem]"
           />
           <span>4: 30</span>
         </div>
         {/* Controls */}
-        <div className="controls flex-1 flex items-center justify-around">
+        <div className="controls flex items-center justify-around">
           {/* previous arrow */}
           <svg width="10.455" height="12.442" viewBox="0 0 10.455 12.442">
             <path
@@ -54,7 +54,7 @@ function MusicPlayer() {
           </svg>
           {/* pauseButton */}
           <div className="pauseButton flex items-center relative">
-            {/* cicrle */}
+            {/* circle */}
             <svg width="40" height="40" viewBox="0 0 40 40">
               <defs>
                 <linearGradient

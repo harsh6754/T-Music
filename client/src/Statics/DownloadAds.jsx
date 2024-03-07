@@ -1,23 +1,20 @@
-import React from 'react'
+import React from 'react';
 
 function DownloadAds() {
-    const downloadImgStyle = 'border-[2px] border-[#232A4E] rounded-[13px] h-[3rem] w-[10rem] cursor-pointer'
-  return (
-    <div className="download">
-        <div className="download_images flex">
-        <img
-          src={require("../Images/App Store.png")}
-          alt=""
-          className={downloadImgStyle + ` mr-[2rem]`}
-        />
-        <img
-          src={require("../Images/Google Play.png")}
-          alt=""
-          className={downloadImgStyle}
-        /> 
+    return (
+        <div className="download flex flex-col md:flex-row items-center justify-center mt-8 md:mt-0">
+            <img
+                src={require("../Images/App Store.png")}
+                alt=""
+                className="border-2 border-[#232A4E] rounded-[13px] h-16 md:h-24 w-32 md:w-40 cursor-pointer mb-4 md:mb-0 md:mr-4"
+            />
+            <img
+                src={require("../Images/Google Play.png")}
+                alt=""
+                className="border-2 border-[#232A4E] rounded-[13px] h-16 md:h-24 w-32 md:w-40 cursor-pointer"
+            />
         </div>
-    </div>
-    )
+    );
 }
 
-export default DownloadAds
+export default DownloadAds;
