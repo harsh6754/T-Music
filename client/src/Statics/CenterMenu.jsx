@@ -12,6 +12,6 @@ function CenterMenu() {
         </ul>
     </div>
     )
-}
+}     
 
 export default CenterMenu
