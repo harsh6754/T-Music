@@ -15,6 +15,7 @@ export { default as DashboardUsers } from './DashboardUsers'
 export { default as DashboardArtist } from './DashboardArtists'
 export { default as DashboardAlbums } from './DashboardAlbums'
 export { default as SongCard } from './SongCard'
+export { default as FilterButtons } from './FilterButtons'
 
 //Profile
 export { default as Profiles } from './profile'
