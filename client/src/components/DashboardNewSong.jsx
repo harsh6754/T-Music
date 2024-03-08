@@ -13,10 +13,9 @@ import { MdDelete } from "react-icons/md";
 
 import { storage } from "../config/firebase.config";
 import { useStateValue } from "../context/StateProvider";
-//import FilterButtons from "./FilterButtons";
 import {
   getAllAlbums,
-  getAllArtist,
+  getAllArtists,
   getAllSongs,
   saveNewAlbum,
   saveNewArtist,
@@ -24,17 +23,39 @@ import {
 } from "../api";
 import { actionType } from "../context/reducer";
 import FilterButtons from './FilterButtons';
-import {filterByLanguage, filter} from "../utils/supportfunctions";
+import { filterByLanguage, filter } from "../utils/supportfunctions";
 //import {IoMusicalNote} from "react-icons/io5";
 //import {AlertSuccess} from "./AlertSuccess";
 //import AlertError from "./AlertError";
 
 const DashboardNewSong = () => {
   const [SongName, setSongName] = useState("");
+  const [{ allArtists, allAlbums}, dispatch] = useStateValue();
+
+  useEffect(() => {
+
+    if (!allArtists){
+      getAllArtists().then((data) => {
+         dispatch({
+          type:actionType.SET_ALL_ARTISTS,
+          allArtists: data.artists
+         })
+      })
+    }
+
+    if (!allAlbums){
+      getAllAlbums().then((data) => {
+         dispatch({
+          type:actionType.SET_ALL_ALBUMS,
+          allAlbums: data.album,
+         })
+      })
+    }
+  }, [])
   return (
     <div className="flex flex-col items-center justify-center p-4 border border-gray-300 rounded-md gap-4">
       <input type="text"
-        placeholder="type your song name..."
+        placeholder="Type your song name..."
         className="w-full p-3 rounded-md text-base font-semibold text-textColor outline-none shadow-sm border-gray-300 bg-transparent"
         value={SongName}
         onChange={(e) =>
@@ -42,10 +63,10 @@ const DashboardNewSong = () => {
         }
       />
       <div className="flex w-full justify-between flex-wrap items-center gap-4">
-        <FilterButtons filterData={""} flag={"Artists"}/>
-        <FilterButtons filterData={""} flag={"Albums"}/>
-        <FilterButtons filterData={filterByLanguage} flag={"Language"}/>
-        <FilterButtons filterData={filter} flag={"Category"}/>
+        <FilterButtons filterData={allArtists} flag={"Artists"} />
+        <FilterButtons filterData={allAlbums} flag={"Albums"} />
+        <FilterButtons filterData={filterByLanguage} flag={"Language"} />
+        <FilterButtons filterData={filter} flag={"Category"} />
       </div>
     </div>
   )
