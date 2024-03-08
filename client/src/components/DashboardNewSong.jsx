@@ -56,7 +56,7 @@ const DashboardNewSong = () => {
     <div className="flex flex-col items-center justify-center p-4 border border-gray-300 rounded-md gap-4">
       <input type="text"
         placeholder="Type your song name..."
-        className="w-full p-3 rounded-md text-base font-semibold text-textColor outline-none shadow-sm border-gray-300 bg-transparent"
+        className="w-full p-1 rounded-md text-base font-semibold text-textColor outline-none shadow-sm border-gray-300 bg-transparent"
         value={SongName}
         onChange={(e) =>
           setSongName(e.target.value)
