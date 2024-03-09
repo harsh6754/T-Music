@@ -1,14 +1,34 @@
 import React, { useState } from 'react';
 import { IoChevronDown } from 'react-icons/io5';
 import { motion } from "framer-motion";
+import { useStateValue } from '../context/StateProvider';
+import { actionType } from '../context/reducer';
 
 const FilterButtons = ({ filterData, flag }) => {
   const [filterName, setFilterName] = useState(null);
   const [filterMenu, setFilterMenu] = useState(false);
+  const [{filterTerm, artistFilter, languageFilter, albumFilter}, dispatch] = useStateValue();
+
 
   const updateFilterDataValues = (name) => {
     setFilterMenu(false)
     setFilterName(name)
+
+    if(flag === "Artists" ){
+      dispatch({type:actionType.SET_ARTIST_FILTER,artistFilter:name})
+    }
+
+    if(flag === "Albums" ){
+      dispatch({type:actionType.SET_ALBUM_FILTER,albumFilter:name})
+    }
+
+    if(flag === "Language" ){
+      dispatch({type:actionType.SET_LANGUAGE_FILTER,languageFilter:name})
+    }
+
+    if(flag === "Category" ){
+      dispatch({type:actionType.SET_FILTER_TERM,filterTerm:name})
+    }
   }
 
   return (
@@ -27,7 +47,11 @@ const FilterButtons = ({ filterData, flag }) => {
 
       </p>
       {filterData && filterMenu && (
-        <motion.div className="w-[150px] h-42 z-50 backdrop-blur-sm max-h-44 overflow-y-scroll no-scrollbar scrollbar-thin scrollbar-track-gray-200 scrollbar-thumb-gray-400 py-1 flex flex-col rounded-md shadow-md absolute top-8 left-0 ">
+        <motion.div 
+        initial={{opacity : 0, y : 50}}
+        animate = {{ opacity : 1, y:0}}
+        exit={{opacity : 0, y : 50}}
+        className="w-[150px] h-42 z-50 backdrop-blur-sm max-h-44 overflow-y-scroll no-scrollbar scrollbar-thin scrollbar-track-gray-200 scrollbar-thumb-gray-400 py-1 flex flex-col rounded-md shadow-md absolute top-8 left-0 ">
           {filterData?.map(data => (
             <div
               key={data.name}
