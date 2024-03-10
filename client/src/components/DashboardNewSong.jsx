@@ -30,25 +30,28 @@ import { filterByLanguage, filter } from "../utils/supportfunctions";
 
 const DashboardNewSong = () => {
   const [SongName, setSongName] = useState("");
-  const [{ allArtists, allAlbums}, dispatch] = useStateValue();
+  const [imageUploadProgress, setImageUplaodProgress] = useState(0);
+  const [songImageCover, setSongImageCover] = useState(null);
+  const [isImageLoading, setIsImageLoading] = useState(false);
+  const [{ allArtists, allAlbums }, dispatch] = useStateValue();
 
   useEffect(() => {
 
-    if (!allArtists){
+    if (!allArtists) {
       getAllArtists().then((data) => {
-         dispatch({
-          type:actionType.SET_ALL_ARTISTS,
+        dispatch({
+          type: actionType.SET_ALL_ARTISTS,
           allArtists: data.artists
-         })
+        })
       })
     }
 
-    if (!allAlbums){
+    if (!allAlbums) {
       getAllAlbums().then((data) => {
-         dispatch({
-          type:actionType.SET_ALL_ALBUMS,
+        dispatch({
+          type: actionType.SET_ALL_ALBUMS,
           allAlbums: data.album,
-         })
+        })
       })
     }
   }, [])
@@ -68,7 +71,84 @@ const DashboardNewSong = () => {
         <FilterButtons filterData={filterByLanguage} flag={"Language"} />
         <FilterButtons filterData={filter} flag={"Category"} />
       </div>
+
+      <div className="bg-card backdrop-blur-md w-full h-300 rounded-md border-2 border-dotted border-gray-300 cursor-pointer">
+        {isImageLoading && <FileLoader progress={imageUploadProgress} />}
+        {!isImageLoading && (
+          <>
+            {!songImageCover ? (
+              <FileUploader
+                updateState={setSongImageCover}
+                setProgress={setImageUplaodProgress}
+                isLoading={setIsImageLoading}
+                isImage={true}
+              />
+            ) : (
+              <div className="">
+                     
+              </div>
+            )}
+          </>
+        )}
+      </div>
     </div>
+  )
+}
+
+export const FileLoader = ({ progress }) => {
+  return (
+    <div className="w-full h-full flex flex-col items-center justify-center">
+      <p className="text-xl font-semibold text-textColor">
+        {Math.round(progress) > 0 && <>{`${Math.round(progress)}%`}</>}
+      </p>
+      <div className='w-20 h-20 min-w-[40px] bg-red-600 animate-ping rounded-full flex items-center justify-center relative'>
+        <div className="absolute inset-0 rounded-full bg-red-600 blur-xl">
+          
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const FileUploader = ({ updateState, setProgress, isLoading, isImage }) => {
+  const uploadFile = (e) => {
+    isLoading(true);
+    const uploadedFile = e.target.files[0];
+    const storageRef = ref(storage, `${isImage ? "Images" : "Audio"}/${Date.now()}-${uploadedFile.name}`)
+    const uploadTask = uploadBytesResumable(storageRef, uploadedFile);
+    uploadTask.on("state_changed", (snapshot) => {
+      setProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
+    },
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          updateState(downloadURL);
+          isLoading(false);
+        })
+      })
+  }
+  return (
+    <label>
+      <div className='flex flex-col items-center justify-center h-full'>
+        <div className="flex flex-col justify-center items-center cursor-pointer">
+          <p className="font-bold text-2xl">
+            <BiCloudUpload />
+          </p>
+          <p className="text-lg">
+            Click to Upload {isImage ? "Image" : "Audio"}
+          </p>
+        </div>
+      </div>
+      <input
+        type="file"
+        name="upload-file"
+        accept={`${isImage ? "image/*" : "audio/*"}`}
+        className={"w-0 h-0"}
+        onChange={uploadFile}
+      />
+    </label>
   )
 }
 
