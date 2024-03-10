@@ -39,10 +39,6 @@ function Feature({ icon, title }) {
           Nunc elementum, dolor vitae lacinia pulvinar, augue felis scelerisque
           libero, sit amet laoreet lorem.
         </span>
-
-        <span className="text-[#E600FF] underline mt-[2rem] md:mt-[3rem] hover:cursor-pointer">
-          Learn more
-        </span>
       </div>
     </VisibilitySensor>
   );
