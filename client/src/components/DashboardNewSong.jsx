@@ -85,6 +85,7 @@ const DashboardNewSong = () => {
     if (isImage) {
       setIsImageLoading(true);
       setIsAudioLoading(true);
+      setIsArtistUploading(true);
     }
     const deleteRef = ref(storage, url);
     deleteObject(deleteRef).then(() => {
@@ -92,11 +93,12 @@ const DashboardNewSong = () => {
       setAudioURLCover(null);
       setIsImageLoading(false);
       setIsAudioLoading(false);
+      setArtistImageCover(null);
+      setIsArtistUploading(false);
     });
   };
 
   //Save Song Data
-
   const saveSong = () => {
     if (!songImageCover || !audioURLCover) {
       //Alert Message
@@ -136,9 +138,35 @@ const DashboardNewSong = () => {
   };
 
 
- const saveArtist = () => {
+  const saveArtist = () => {
+    if (!artistImageCover || !artistName || !isTwitter || !isInstagram) {
+      //Alert Msg
+    } else {
+      setIsArtistUploading(true);
+      const data = {
+        name: artistName,
+        imageURL: artistImageCover,
+        twitter: isTwitter,
+        instagram: isInstagram,
+      }
 
- };
+      saveNewArtist(data).then(res => {
+        getAllArtists().then(artists => {
+          dispatch({
+            type: actionType.SET_ALL_ARTISTS,
+            allArtists: artists.artists,
+          });
+        });
+      });
+
+      setIsArtistUploading(false);
+      setArtistName("")
+      setTwitter("");
+      setInstagram("");
+      setArtistUploadingProgress(false);
+      setArtistImageCover(null);
+    }
+  };
 
   return (
     <div className="flex flex-col items-center justify-center p-4 border border-gray-300 rounded-md gap-4" >
@@ -157,8 +185,10 @@ const DashboardNewSong = () => {
         <FilterButtons filterData={filter} flag={"Category"} />
       </div>
 
-      {/* Image Uplader */}
-
+      {/* Image Uploder */}
+      <p className="text-xl font-semibold text-headingColor">
+        Songs Details
+      </p>
       <div className="bg-card backdrop-blur-md w-full h-300 rounded-md border-2 border-dotted border-gray-300 cursor-pointer">
         {isImageLoading && <FileLoader progress={imageUploadProgress} />}
         {!isImageLoading && (
@@ -191,7 +221,6 @@ const DashboardNewSong = () => {
       </div>
 
       {/* Audio Uploader */}
-
       <div className="bg-card backdrop-blur-md w-full h-300 rounded-md border-2 border-dotted border-gray-300 cursor-pointer">
         {isAudioLoading && <FileLoader progress={audioUploadProgress} />}
         {!isAudioLoading && (
@@ -224,7 +253,6 @@ const DashboardNewSong = () => {
       </div>
 
       {/* Button Section */}
-
       <div className="flex items-center justify-center w-50 p-4 cursor-pointer">
         {isImageLoading || isAudioLoading ? (
           <DisabledButton />
@@ -388,7 +416,7 @@ export const FileUploader = ({ updateState, setProgress, isLoading, isImage }) =
         })
       })
   }
-  
+
   return (
     <label>
       <div className='flex flex-col items-center justify-center h-full'>
