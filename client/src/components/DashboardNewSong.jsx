@@ -41,7 +41,22 @@ const DashboardNewSong = () => {
   const [audioURLCover, setAudioURLCover] = useState(null);
   const [isAudioLoading, setIsAudioLoading] = useState(false);
 
-  //All Artist & Albums Value Data State Value 
+
+  // Artist Image Upload State
+  const [artistImageCover, setArtistImageCover] = useState(null);
+  const [artistUploadingProgress, setArtistUploadingProgress] = useState(0);
+  const [isArtistUploading, setIsArtistUploading] = useState(false);
+  const [artistName, setArtistName] = useState("")
+  const [isTwitter, setTwitter] = useState("");
+  const [isInstagram, setInstagram] = useState("");
+
+  //Album Image Upload State
+  const [albumImageCover, setAlbumImageCover] = useState(null);
+  const [albumUploadingProgress, setAlbumUploadingProgress] = useState(0);
+  const [isAlbumUploading, setIsAlbumUploading] = useState(false);
+  const [albumName, setAlbumName] = useState("")
+
+  //All Artist Or Albums Value State
   const [{ allArtists, allAlbums, filterTerm, artistFilter, languageFilter, albumFilter, allSongs }, dispatch] = useStateValue();
 
   useEffect(() => {
@@ -98,6 +113,7 @@ const DashboardNewSong = () => {
         language: languageFilter,
         category: filterTerm,
       };
+
       saveNewSong(data).then(res => {
         getAllSongs().then(songs => {
           dispatch({
@@ -116,9 +132,13 @@ const DashboardNewSong = () => {
       dispatch({ type: actionType.SET_LANGUAGE_FILTER, languageFilter: null });
       dispatch({ type: actionType.SET_ALBUM_FILTER, albumFilter: null });
       dispatch({ type: actionType.SET_FILTER_TERM, filterTerm: null });
-    }
-  }
+    };
+  };
 
+
+ const saveArtist = () => {
+
+ };
 
   return (
     <div className="flex flex-col items-center justify-center p-4 border border-gray-300 rounded-md gap-4" >
@@ -202,6 +222,9 @@ const DashboardNewSong = () => {
           </>
         )}
       </div>
+
+      {/* Button Section */}
+
       <div className="flex items-center justify-center w-50 p-4 cursor-pointer">
         {isImageLoading || isAudioLoading ? (
           <DisabledButton />
@@ -211,7 +234,92 @@ const DashboardNewSong = () => {
             className='w-full px-8 py-2 rounded-md text-white bg-red-600 hover:shadow-lg '
             onClick={saveSong}
           >
-            Save
+            Save Song
+          </motion.button>
+        )}
+      </div>
+
+      {/* Image Uploader For Artist */}
+      <p className="text-xl font-semibold text-headingColor">
+        Artist Details
+      </p>
+      <div className="bg-card backdrop-blur-md w-full h-300 rounded-md border-2 border-dotted border-gray-300 cursor-pointer">
+        {isArtistUploading && <FileLoader progress={artistUploadingProgress} />}
+        {!isArtistUploading && (
+          <>
+            {!artistImageCover ? (
+              <FileUploader
+                updateState={setArtistImageCover}
+                setProgress={setArtistUploadingProgress}
+                isLoading={setIsArtistUploading}
+                isImage={true}
+              />
+            ) : (
+              <div className="relative w-full h-full overflow-hide">
+                <img
+                  src={artistImageCover}
+                  className="w-full h-full object-cover flex-auto"
+                  alt=""
+                />
+                <button
+                  type="button"
+                  className='absolute bottom-3 right-3 p-3 rounded-full bg-red-500 text-xl cursor-pointer outline-none border-none hover:shadow-md duration-200 transition-all ease-in-out'
+                  onClick={() => deleteFileObject(artistImageCover, true)}
+                >
+                  <MdDelete className='text-white' />
+                </button>
+              </div>
+            )}
+          </>
+        )}
+      </div>
+
+      {/* Artist Name */}
+      <input type="text"
+        placeholder="Artist name..."
+        className="w-full p-3 rounded-md text-base font-semibold text-textColor outline-none shadow-sm border-gray-300 bg-transparent"
+        value={artistName}
+        onChange={(e) =>
+          setArtistName(e.target.value)
+        }
+      />
+
+      {/* Twitter URL */}
+      <div class="flex items-center rounded-md p-1 border border-gray-300 w-full ">
+        <p class="text-base font-semibold text-gray-500">www.twitter.com/</p>
+        <input type="text" placeholder="your twitter id..."
+          className="w-full text-base font-semibold text-textColor bg-transparent outline-none border-none "
+          value={isTwitter}
+          onChange={(e) =>
+            setTwitter(e.target.value)
+          }
+        />
+      </div>
+
+      {/* Instagram URL */}
+      <div class="flex items-center rounded-md p-1 border border-gray-300 w-full">
+        <p class="text-base font-semibold text-gray-500">www.instagram.com/</p>
+
+        <input type="text" placeholder="your instagram id..."
+          className="w-full text-base font-semibold text-textColor bg-transparent outline-none border-none"
+          value={isInstagram}
+          onChange={(e) =>
+            setInstagram(e.target.value)
+          }
+        />
+      </div>
+
+      {/* Button Section */}
+      <div className="flex items-center justify-center w-50 p-4 cursor-pointer">
+        {isArtistUploading ? (
+          <DisabledButton />
+        ) : (
+          <motion.button
+            whileTap={{ scale: 0.75 }}
+            className='w-full px-8 py-2 rounded-md text-white bg-red-600 hover:shadow-lg '
+            onClick={saveArtist}
+          >
+            Save Artist
           </motion.button>
         )}
       </div>
@@ -255,7 +363,6 @@ export const FileLoader = ({ progress }) => {
       </p>
       <div className='w-20 h-20 min-w-[40px] bg-red-600 animate-ping rounded-full flex items-center justify-center relative'>
         <div className="absolute inset-0 rounded-full bg-red-600 blur-xl">
-
         </div>
       </div>
     </div>
@@ -281,6 +388,7 @@ export const FileUploader = ({ updateState, setProgress, isLoading, isImage }) =
         })
       })
   }
+  
   return (
     <label>
       <div className='flex flex-col items-center justify-center h-full'>
