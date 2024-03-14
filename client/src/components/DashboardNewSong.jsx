@@ -86,6 +86,7 @@ const DashboardNewSong = () => {
       setIsImageLoading(true);
       setIsAudioLoading(true);
       setIsArtistUploading(true);
+      setIsArtistUploading(true);
     }
     const deleteRef = ref(storage, url);
     deleteObject(deleteRef).then(() => {
@@ -95,6 +96,8 @@ const DashboardNewSong = () => {
       setIsAudioLoading(false);
       setArtistImageCover(null);
       setIsArtistUploading(false);
+      setAlbumImageCover(null);
+      setIsAlbumUploading(false);
     });
   };
 
@@ -168,8 +171,38 @@ const DashboardNewSong = () => {
     }
   };
 
+const saveAlbum = () => {
+  if(!albumImageCover || !albumName){
+    //Alert Msg
+  }else{
+    setIsAlbumUploading(true);
+    const data = {
+      name : albumName,
+      imageURL:albumImageCover,
+    }
+
+    saveNewAlbum(data).then(() => {
+      getAllAlbums().then(albums => {
+        dispatch({
+          type:actionType.SET_ALL_ALBUMS,
+          allAlbums:albums.album,
+        });
+      });
+    });
+
+    setIsAlbumUploading(false);
+    setAlbumName("")
+    setAlbumUploadingProgress(false)
+    setAlbumImageCover(null)
+  }
+}
+
   return (
+
     <div className="flex flex-col items-center justify-center p-4 border border-gray-300 rounded-md gap-4" >
+      <p className="text-xl font-semibold text-headingColor">
+        Songs Details
+      </p>
       <input type="text"
         placeholder="Type your song name..."
         className="w-full p-1 rounded-md text-base font-semibold text-textColor outline-none shadow-sm border-gray-300 bg-transparent"
@@ -186,9 +219,6 @@ const DashboardNewSong = () => {
       </div>
 
       {/* Image Uploder */}
-      <p className="text-xl font-semibold text-headingColor">
-        Songs Details
-      </p>
       <div className="bg-card backdrop-blur-md w-full h-300 rounded-md border-2 border-dotted border-gray-300 cursor-pointer">
         {isImageLoading && <FileLoader progress={imageUploadProgress} />}
         {!isImageLoading && (
@@ -348,6 +378,64 @@ const DashboardNewSong = () => {
             onClick={saveArtist}
           >
             Save Artist
+          </motion.button>
+        )}
+      </div>
+
+      {/* Albums Details Uploads  */}
+
+      <p className="text-xl font-semibold text-headingColor">
+        Albums Details
+      </p>
+      <div className="bg-card backdrop-blur-md w-full h-300 rounded-md border-2 border-dotted border-gray-300 cursor-pointer">
+        {isAlbumUploading && <FileLoader progress={albumUploadingProgress} />}
+        {!isAlbumUploading && (
+          <>
+            {!albumImageCover ? (
+              <FileUploader
+                updateState={setAlbumImageCover}
+                setProgress={setAlbumUploadingProgress}
+                isLoading={setIsAlbumUploading}
+                isImage={true}
+              />
+            ) : (
+              <div className="relative w-full h-full overflow-hide">
+                <img
+                  src={albumImageCover}
+                  className="w-full h-full object-cover flex-auto"
+                  alt=""
+                />
+                <button
+                  type="button"
+                  className='absolute bottom-3 right-3 p-3 rounded-full bg-red-500 text-xl cursor-pointer outline-none border-none hover:shadow-md duration-200 transition-all ease-in-out'
+                  onClick={() => deleteFileObject(albumImageCover, true)}
+                >
+                  <MdDelete className='text-white' />
+                </button>
+              </div>
+            )}
+          </>
+        )}
+      </div>
+      <input type="text" placeholder="Album Name..."
+        className="w-full text-base font-semibold text-textColor bg-transparent outline-none  border border-gray-500 rounded-md"
+        value={albumName}
+        onChange={(e) =>
+          setAlbumName(e.target.value)
+        }
+      />
+
+      {/* Button Section */}
+      <div className="flex items-center justify-center w-50 p-4 cursor-pointer">
+        {isAlbumUploading ? (
+          <DisabledButton />
+        ) : (
+          <motion.button
+            whileTap={{ scale: 0.75 }}
+            className='w-full px-8 py-2 rounded-md text-white bg-red-600 hover:shadow-lg '
+            onClick={saveAlbum}
+          >
+            Save Album
           </motion.button>
         )}
       </div>
