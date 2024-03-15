@@ -28,6 +28,8 @@ import { filterByLanguage, filter } from "../utils/supportfunctions";
 //import {AlertSuccess} from "./AlertSuccess";
 //import AlertError from "./AlertError";
 
+
+//Dashboard New Songs State
 const DashboardNewSong = () => {
   const [SongName, setSongName] = useState("");
 
@@ -57,7 +59,18 @@ const DashboardNewSong = () => {
   const [albumName, setAlbumName] = useState("")
 
   //All Artist Or Albums Value State
-  const [{ allArtists, allAlbums, filterTerm, artistFilter, languageFilter, albumFilter, allSongs }, dispatch] = useStateValue();
+  const [
+    {
+      allArtists,
+      allAlbums,
+      filterTerm,
+      artistFilter,
+      languageFilter,
+      albumFilter,
+      allSongs,
+      alertType
+    },
+    dispatch] = useStateValue();
 
   useEffect(() => {
 
@@ -87,24 +100,63 @@ const DashboardNewSong = () => {
       setIsAudioLoading(true);
       setIsArtistUploading(true);
       setIsArtistUploading(true);
+      //Alert Message Function
+      dispatch({
+        type: actionType.SET_ALERT_TYPE,
+        alertType: "success"
+      })
+
+      //Disable Alert Message
+      setInterval(() => {
+        dispatch({
+          type: actionType.SET_ALERT_TYPE,
+          alertType: null
+        })
+      }, 5000);
     }
     const deleteRef = ref(storage, url);
     deleteObject(deleteRef).then(() => {
       setSongImageCover(null);
       setAudioURLCover(null);
+      setAlbumImageCover(null);
+      setArtistImageCover(null);
       setIsImageLoading(false);
       setIsAudioLoading(false);
-      setArtistImageCover(null);
-      setIsArtistUploading(false);
-      setAlbumImageCover(null);
       setIsAlbumUploading(false);
+      setIsArtistUploading(false);
     });
+
+    //Alert Message Enable
+    dispatch({
+      type: actionType.SET_ALERT_TYPE,
+      alertType: "danger"
+    })
+
+    //Disable Alert Message
+    setInterval(() => {
+      dispatch({
+        type: actionType.SET_ALERT_TYPE,
+        alertType: null
+      })
+    }, 5000);
   };
 
   //Save Song Data
   const saveSong = () => {
     if (!songImageCover || !audioURLCover) {
-      //Alert Message
+      //Alert Message Enable
+      dispatch({
+        type: actionType.SET_ALERT_TYPE,
+        alertType: "danger"
+      })
+
+      //Disable Alert Message
+      setInterval(() => {
+        dispatch({
+          type: actionType.SET_ALERT_TYPE,
+          alertType: null
+        })
+      }, 5000);
     } else {
       setIsAudioLoading(true);
       setIsImageLoading(true);
@@ -128,6 +180,19 @@ const DashboardNewSong = () => {
         });
       });
 
+      //Alert Message Enable
+      dispatch({
+        type: actionType.SET_ALERT_TYPE,
+        alertType: "success"
+      })
+
+      //Disable Alert Message
+      setInterval(() => {
+        dispatch({
+          type: actionType.SET_ALERT_TYPE,
+          alertType: null
+        })
+      }, 5000);
       setSongName(null);
       setIsAudioLoading(false);
       setIsImageLoading(false);
@@ -140,10 +205,22 @@ const DashboardNewSong = () => {
     };
   };
 
-
+  //Save Artist
   const saveArtist = () => {
     if (!artistImageCover || !artistName || !isTwitter || !isInstagram) {
-      //Alert Msg
+      //Alert Message Enable
+      dispatch({
+        type: actionType.SET_ALERT_TYPE,
+        alertType: "danger"
+      })
+
+      //Disable Alert Message
+      setInterval(() => {
+        dispatch({
+          type: actionType.SET_ALERT_TYPE,
+          alertType: null
+        })
+      }, 5000);
     } else {
       setIsArtistUploading(true);
       const data = {
@@ -162,6 +239,20 @@ const DashboardNewSong = () => {
         });
       });
 
+      //Alert Message Enable
+      dispatch({
+        type: actionType.SET_ALERT_TYPE,
+        alertType: "success"
+      })
+
+      //Disable Alert Message
+      setInterval(() => {
+        dispatch({
+          type: actionType.SET_ALERT_TYPE,
+          alertType: null
+        })
+      }, 5000);
+
       setIsArtistUploading(false);
       setArtistName("")
       setTwitter("");
@@ -171,31 +262,57 @@ const DashboardNewSong = () => {
     }
   };
 
-const saveAlbum = () => {
-  if(!albumImageCover || !albumName){
-    //Alert Msg
-  }else{
-    setIsAlbumUploading(true);
-    const data = {
-      name : albumName,
-      imageURL:albumImageCover,
-    }
+  // Save Albums
+  const saveAlbum = () => {
+    if (!albumImageCover || !albumName) {
+      //Alert Message Enable
+      dispatch({
+        type: actionType.SET_ALERT_TYPE,
+        alertType: "danger"
+      })
 
-    saveNewAlbum(data).then(() => {
-      getAllAlbums().then(albums => {
+      //Disable Alert Message
+      setInterval(() => {
         dispatch({
-          type:actionType.SET_ALL_ALBUMS,
-          allAlbums:albums.album,
+          type: actionType.SET_ALERT_TYPE,
+          alertType: null
+        })
+      }, 5000);
+    } else {
+      setIsAlbumUploading(true);
+      const data = {
+        name: albumName,
+        imageURL: albumImageCover,
+      }
+
+      saveNewAlbum(data).then(() => {
+        getAllAlbums().then(albums => {
+          dispatch({
+            type: actionType.SET_ALL_ALBUMS,
+            allAlbums: albums.album,
+          });
         });
       });
-    });
+      //Alert Message Enable
+      dispatch({
+        type: actionType.SET_ALERT_TYPE,
+        alertType: "success"
+      })
 
-    setIsAlbumUploading(false);
-    setAlbumName("")
-    setAlbumUploadingProgress(false)
-    setAlbumImageCover(null)
+      //Disable Alert Message
+      setInterval(() => {
+        dispatch({
+          type: actionType.SET_ALERT_TYPE,
+          alertType: null
+        })
+      }, 5000);
+
+      setIsAlbumUploading(false);
+      setAlbumName("")
+      setAlbumUploadingProgress(false)
+      setAlbumImageCover(null)
+    }
   }
-}
 
   return (
 
@@ -486,6 +603,8 @@ export const FileLoader = ({ progress }) => {
 }
 
 export const FileUploader = ({ updateState, setProgress, isLoading, isImage }) => {
+  const [{ alertType }, dispatch] = useStateValue();
+
   const uploadFile = (e) => {
     isLoading(true);
     const uploadedFile = e.target.files[0];
@@ -496,12 +615,39 @@ export const FileUploader = ({ updateState, setProgress, isLoading, isImage }) =
     },
       (error) => {
         console.log(error);
+        //Alert Message Enable
+        dispatch({
+          type: actionType.SET_ALERT_TYPE,
+          alertType: "danger"
+        })
+
+        //Disable Alert Message
+        setInterval(() => {
+          dispatch({
+            type: actionType.SET_ALERT_TYPE,
+            alertType: null
+          })
+        }, 5000);
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           updateState(downloadURL);
           isLoading(false);
         })
+
+        //Alert Message Enable
+        dispatch({
+          type: actionType.SET_ALERT_TYPE,
+          alertType: "success"
+        })
+
+        //Disable Alert Message
+        setInterval(() => {
+          dispatch({
+            type: actionType.SET_ALERT_TYPE,
+            alertType: null
+          })
+        }, 5000);
       })
   }
 
