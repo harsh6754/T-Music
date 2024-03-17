@@ -1,13 +1,58 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { IoTrash } from 'react-icons/io5'
+import { deleteArtistById, deleteSongById, getAllArtists, getAllSongs } from '../api';
+import { useStateValue } from '../context/StateProvider';
+import { actionType } from '../context/reducer';
+import { storage } from "../config/firebase.config";
+import { ref } from "firebase/storage"
 
 const SongCard = ({ data, index, type }) => {
   const [isDelete, setIsDelete] = useState(false);
+  const [{ alertType, allArtists, allAlbums, allSongs }, dispatch] = useStateValue();
 
-  const deleteObject = () =>{
-    
-  }
+  
+  const deleteObject = () => {
+    if (type === "songs") {
+
+      const deleteRef = ref(storage, data.imageURL);
+      deleteObject(deleteRef).then(() => { });
+
+      deleteSongById(data._id).then((res) => {
+        if (res.data) {
+          dispatch({
+            type: actionType.SET_ALERT_TYPE,
+            alertType: "success"
+          })
+          setInterval(() => {
+            dispatch({
+              type: actionType.SET_ALERT_TYPE,
+              alertType: null
+            })
+          }, 5000);
+
+          getAllSongs().then((data) => {
+            console.log(data.song)
+            dispatch({
+              type: actionType.SET_ALL_SONGS,
+              allSongs: data.song,
+            });
+          });
+        } else {
+          dispatch({
+            type: actionType.SET_ALERT_TYPE,
+            alertType: "danger"
+          })
+          setInterval(() => {
+            dispatch({
+              type: actionType.SET_ALERT_TYPE,
+              alertType: null
+            })
+          }, 5000);
+        }
+      });
+    }
+    };
 
   return (
     <motion.div className='relative w-40 min-w-210 px-2 py-4 cursor-pointer hover:bg-card bg-gray-100 shadow-md rounded-lg flex flex-col items-center'>
