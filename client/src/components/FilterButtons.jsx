@@ -39,7 +39,7 @@ const FilterButtons = ({ filterData, flag }) => {
         {!filterName && flag}
         {filterName && (
           <>
-            {filterName.length > 9 ? `${filterName.name.slice(0, 9)}...` : filterName}
+            {filterName.length > 15 ? `${filterName.name.slice(0, 15)}...` : filterName}
           </>
         )}
 
