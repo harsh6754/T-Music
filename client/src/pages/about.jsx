@@ -263,7 +263,7 @@ const About = () => {
           transition={{ duration: 0.5, delay: 1.5 }}
         >
           <p className="aboutHostel">
-            <span>Agrawal Music </span>
+            <span>Apna-Musics </span>
             A music streaming website is an online platform that allows users to listen to and discover music over the internet. These websites provide access to a vast library of songs from various genres, artists, and labels that can be streamed on-demand or played in radio-style channels.
           </p>
         </motion.div>

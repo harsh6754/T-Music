@@ -12,7 +12,11 @@ export const actionType = {
   SET_ALBUM_FILTER: "SET_ALBUM_FILTER",
 
   //Alert Types
-  SET_ALERT_TYPE: "SET_ALERT_TYPE"
+  SET_ALERT_TYPE: "SET_ALERT_TYPE",
+
+  //Music Player
+  SET_ISSONG_PLAYING: "SET_ISSONG_PLAYING",
+  SET_SONG_INDEX:"SET_SONG_INDEX",
 };
 
 const reducer = (state, action) => {
@@ -74,6 +78,18 @@ const reducer = (state, action) => {
         ...state,
         alertType: action.alertType
       }
+    
+      case actionType.SET_ISSONG_PLAYING:
+      return {
+        ...state,
+        isSongPlaying:action.isSongPlaying,
+      }
+
+      case actionType:SET_SONG_INDEX:
+        return {
+         ...state,
+         songIndex:action.songIndex,
+        }
 
 
     default:

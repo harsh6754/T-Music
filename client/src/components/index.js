@@ -16,6 +16,7 @@ export { default as DashboardArtist } from './DashboardArtists'
 export { default as DashboardAlbums } from './DashboardAlbums'
 export { default as SongCard } from './SongCard'
 export { default as FilterButtons } from './FilterButtons'
+export { default as MusicPlayer } from "./MusicPlayer"
 
 //Alert Msg
 export { default as Alert } from './Alert'

@@ -10,7 +10,7 @@ import { deleteObject, ref } from "firebase/storage";
 
 const SongCard = ({ data, index, type }) => {
   const [isDelete, setIsDelete] = useState(false);
-  const [{ alertType, allArtists, allAlbums, allSongs }, dispatch] = useStateValue();
+  const [{ alertType, allArtists, allAlbums, allSongs,songIndex,isSongPlaying }, dispatch] = useStateValue();
 
 
   const deleteData = (data) => {
@@ -133,8 +133,26 @@ const SongCard = ({ data, index, type }) => {
     }
   };
 
+  const addToContext = () => {
+     if(!isSongPlaying){
+      dispatch({
+        type:actionType.SET_ISSONG_PLAYING,
+        isSongPlaying:true,
+      })
+     }
+
+     if(songIndex !== index){
+      dispatch({
+        type:actionType.SET_SONG_INDEX,
+        songIndex: index
+      })
+     }
+  }
+
   return (
-    <motion.div className='relative w-40 min-w-210 px-2 py-4 cursor-pointer hover:bg-card bg-gray-100 shadow-md rounded-lg flex flex-col items-center'>
+    <motion.div className='relative w-40 min-w-210 px-2 py-4 cursor-pointer hover:bg-card bg-gray-100 shadow-md rounded-lg flex flex-col items-center'
+    onClick={type === "songs" && addToContext}
+    >
       <div className='w-40 min-w-[160px] h-40 min-h-[160px] rounded-lg drop-shadow-lg relative overflow-hidden'>
         <motion.img
           whileHover={{ scale: 1.05 }}
@@ -149,7 +167,7 @@ const SongCard = ({ data, index, type }) => {
           </span>
         )}
       </p>
-      <div className="flex items-center gap-8">
+      <div className="flex items-center gap-8 cursor-pointer ">
         <a href={data.instagram} target="_blank">
           <motion.i whileTap={{ scale: 0.75 }}>
             <IoLogoInstagram className="text-gray-500 hover:text-headingColor text-xl" />

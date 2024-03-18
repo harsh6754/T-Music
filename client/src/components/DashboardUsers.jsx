@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useStateValue } from '../context/StateProvider'
 import { motion } from "framer-motion";
 import moment from 'moment';
@@ -11,6 +11,17 @@ export const DashboardUserCard = ({ data, index }) => {
   const [{ user, allUsers }, dispatch] = useStateValue();
   const [isUserRoleUpdated, setisUserRoleUpdated] = useState(false)
   const createdAt = moment(new Date(data.createdAt)).format("MMM Do YYYY");
+
+  useEffect(()=>{
+      if(!allUsers){
+        getAllUsers().then((data) => {
+          dispatch({
+            type: actionType.SET_ALL_USERS,
+            allUsers: data.data,
+          });
+        });
+      }
+  }, [])
 
   const updateUserRole = (userId, role) => {
     setisUserRoleUpdated(false)

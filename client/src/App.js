@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
-import { Dashboard, Home, Login, Contact, Musics, Premium, AboutUs,  Profiles, Header} from './components'
+import { Dashboard, Home, Login, Contact, Musics, Premium, AboutUs, Profiles, Header, MusicPlayer } from './components'
 import { app } from './config/firebase.config'
 import { getAuth, onIdTokenChanged } from 'firebase/auth'
-
-// import { AnimatePresence } from 'framer-motion';
-import { AnimatePresence } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { validateUser } from './api'
 
 import { useStateValue } from './context/StateProvider'
@@ -17,8 +15,7 @@ const App = () => {
 
     const firebaseAuth = getAuth(app);
     const navigate = useNavigate();
-
-    const [{ user }, dispatch] = useStateValue();
+    const [{ user, isSongPlaying }, dispatch] = useStateValue();
 
     const [auth, setAuth] = useState(window.localStorage.getItem("auth") ?? "false")
 
@@ -60,14 +57,24 @@ const App = () => {
                 <Routes>
                     <Route path='/login' element={<Login setAuth={setAuth} />} />
                     <Route path='/*' element={<Home />} />
-                    <Route path='/contact' element={<Contact/>}/>
-                    <Route path='/musics' element={<Musics/>}/>
-                    <Route path ='/premium' element={<Premium/>}/>
-                    <Route path = '/about' element={<AboutUs/>}/>
-                    <Route path = '/userProfile' element={<Profiles />}/>
+                    <Route path='/contact' element={<Contact />} />
+                    <Route path='/musics' element={<Musics />} />
+                    <Route path='/premium' element={<Premium />} />
+                    <Route path='/about' element={<AboutUs />} />
+                    <Route path='/userProfile' element={<Profiles />} />
                     <Route path='/dashboard/*' element={<Dashboard />} />
-                    <Route path='/tmusics' element={<MusicStatic/>}/>
+                    <Route path='/tmusics' element={<MusicStatic />} />
                 </Routes>
+
+                {isSongPlaying && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 50 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className={`fixed min-w-[700px] h-26 inset-x-0 bottom-0 bg-cardOverlay drop-shadow-2xl backdrop-blur-md flex items-center justify-center border border-gray-400 rounded-lg `}
+                    >
+                        <MusicPlayer />
+                    </motion.div>
+                )}
             </div>
         </AnimatePresence>
     )

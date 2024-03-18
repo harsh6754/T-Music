@@ -12,5 +12,9 @@ export const initialState = {
     albumFilter:null, 
 
     //Alert Type
-    alertType:null,  
+    alertType:null, 
+    
+    //Music Player
+    isSongPlaying : false,
+    songIndex : 0,
 };
